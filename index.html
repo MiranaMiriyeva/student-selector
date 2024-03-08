@@ -45,7 +45,10 @@
     border: 1px solid #ccc;
     border-radius: 5px;
   }
-
+  
+  #finish{
+    display: none;
+  }
   button {
     background-color:  rgba(55,61,73,0.87);
     color: white;
@@ -81,6 +84,7 @@
 <body>
     <h1>Student Selector</h1>
     <div id="container">
+        <div id="first-section">
         <label for="itemCount">Number of items you want to add:</label>
         <input type="number" id="itemCount">
         <button onclick="addItems()">Add</button>
@@ -88,7 +92,8 @@
         <div id="itemInputs">
 
         </div>
-
+        <button id="finish" onclick="completeSelection()">Finish</button>
+    </div>
         <label for="randomCount">Number of items to be randomly displayed (between 2-5):</label>
         <input type="number" id="randomCount" min="2" max="5">
         <button onclick="showRandomItems()">Show</button>
@@ -96,60 +101,54 @@
         <ul id="randomItemList">
         
         </ul>
+
+      
 </div>
 <script>
-  // Boş array yaradiriq
   var items = [];
 
-  
   window.onload = function() {
     var savedItems = localStorage.getItem('items');
     if (savedItems) {
       items = JSON.parse(savedItems);
     }
+    loadItems();
   };
 
   function saveItemsToLocalStorage() {
     localStorage.setItem('items', JSON.stringify(items));
   }
 
-  function addItems() {
-    // bu yazacagimiz sagird sayidi
-    var count = parseInt(document.getElementById("itemCount").value);
-
-    
-    items = [];
-
-    
-    document.getElementById("itemInputs").innerHTML = "";
-
-    // sagird adlarini elave etmek ucun inputlar yaradiriq
+  function loadItems() {
     var itemInputs = document.getElementById("itemInputs");
+    items.forEach(function(item) {
+      var input = document.createElement("input");
+      input.type = "text";
+      input.value = item;
+      itemInputs.appendChild(input);
+    });
+  }
+
+  function addItems() {
+    var count = parseInt(document.getElementById("itemCount").value);
+    var itemInputs = document.getElementById("itemInputs");
+    itemInputs.innerHTML = "";
+  
     for (var i = 0; i < count; i++) {
       var input = document.createElement("input");
       input.type = "text";
       input.placeholder = "item " + (i + 1);
       itemInputs.appendChild(input);
     }
-
-   
-    saveItemsToLocalStorage();
-  }
-
-  function removeItem(index) {
-    items.splice(index, 1);
-    saveItemsToLocalStorage(); 
+    document.getElementById("finish").style.display=  'flex';
   }
 
   function showRandomItems() {
-    // ders danisacaq usaqlarin sayi
     var randomCount = parseInt(document.getElementById("randomCount").value);
+    var randomItemList = document.getElementById("randomItemList");
 
-    
-    document.getElementById("randomItemList").innerHTML = "";
-
-    // usaqlarin adini arraye yigiriq
     var itemInputs = document.getElementById("itemInputs").getElementsByTagName("input");
+    items = [];
     for (var i = 0; i < itemInputs.length; i++) {
       var item = itemInputs[i].value.trim();
       if (item !== "") {
@@ -157,7 +156,6 @@
       }
     }
 
-    // eger bosdusa bildiris versin
     if (items.length === 0) {
       alert("Please fill");
       return;
@@ -168,21 +166,27 @@
       return;
     }
 
-    // ders danisacaq usaqlar secilir
     var randomItems = [];
     for (var i = 0; i < randomCount; i++) {
       var randomIndex = Math.floor(Math.random() * items.length);
       randomItems.push(items[randomIndex]);
-      removeItem(randomIndex); 
+      items.splice(randomIndex, 1); 
     }
 
-    // ekrana cixardiriq
-    var randomItemList = document.getElementById("randomItemList");
-    for (var i = 0; i < randomItems.length; i++) {
+    randomItemList.innerHTML = "";
+    randomItems.forEach(function(item) {
       var li = document.createElement("li");
-      li.appendChild(document.createTextNode(randomItems[i]));
+      li.appendChild(document.createTextNode(item));
       randomItemList.appendChild(li);
-    }
+    });
+
+    saveItemsToLocalStorage();
+  }
+
+  function completeSelection() {
+    var firstSection = document.getElementById("first-section");
+    firstSection.style.display = "none";
+    saveItemsToLocalStorage();
   }
 </script>
 
