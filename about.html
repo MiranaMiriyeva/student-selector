@@ -82,6 +82,35 @@ body {
     letter-spacing: 1px;
     text-shadow: #555 1px 1px;
   }
+  @media screen and (max-width: 500px) {
+    .main-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .container {
+        max-width: 100%;
+        margin: 20px;
+    }
+
+    .image-container {
+        float: none;
+        display: flex;
+        align-items: center;
+        text-align: center;
+    }
+
+    .image-container img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .content span {
+        width: auto;
+        margin: 15px 10px;
+    }
+}
+
     </style>
 </head>
 <body>
