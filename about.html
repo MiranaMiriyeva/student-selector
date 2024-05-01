@@ -9,39 +9,47 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f3f3f3;
+    background-color: #86c0d13c;
 }
 
+.main-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+}
 .container {
     max-width: 800px;
-    margin: 0 auto;
+    margin: 60px 30px;
     overflow: hidden;
-    background-color: #d99de837;
+    background-color: #86c0d18f;
     border: 1px solid #ccc;
     border-radius: 10px;
     padding: 20px;
+
 }
 
 .h1 {
     text-align: center; 
-    text-shadow: 2px 2px 2px #a967baf0;
+    text-shadow: 2px 2px 2px #214F5D;
 }
 
 .image-container {
     float: left; 
     margin-right: 20px; 
-    text-shadow: 1px 1px 1px #a967baf0;
+    text-shadow: 1px 1px 1px #214F5D;
 
 }
 
 .image-container img {
     width: 200px;
-    height: auto; 
+    height: 200px; 
     border-radius: 50%; 
     display: block; 
     margin-bottom: 10px;
-    border: 4px solid #d99de8f0 ;
-    box-shadow: 2px 2px 20px #a967baf0;
+    border: 4px solid #214f5d33 ;
+    box-shadow: 2px 2px 20px #214F5D;
+    object-fit: cover;
 }
 
 .content {
@@ -50,7 +58,7 @@ body {
 
 .content span {
     float: right; 
-    width: 500px;
+    width: 300px;
     margin: 15px 30px;
 }
 
@@ -77,23 +85,37 @@ body {
     </style>
 </head>
 <body>
+    <div class="main-container">
+        <div class="container">
+            <h1 class="h1">About Adviser</h1>
+          <div class="image-container">
+              <img src="https://bdu.info.az/storage/19287/conversions/Qurbanov-sm.jpg" alt="">
+              <h2 style="margin-left: 15px;">Fuad Qurbanov</h2>
+          </div>
+          <div class="content">
+              <span>
+                Born on July 10, 1958, in Baku, he commenced his academic journey in 1984 at Baku State University. Starting off at the Department of Applied Mathematics, he later worked at the Departments of Cybernetics and Information Technologies and Programming.
+
+                He has gained worldwide recognition in fields such as algorithmic languages, algorithm analysis, and informatics. With 62 articles and 1 patent to his name, this scholar is also the creator of new testing systems and educational concepts.
+
+                His research spans various domains including computational mathematics, Fuzzy logic, decision-making under uncertainty, and educational methodology. Additionally, he has delved into psychology and the study of thought processes.
+              </span>
+          </div>
+      </div>
     <div class="container">
           <h1 class="h1">About Author</h1>
         <div class="image-container">
-            <img src="mepp.jpg" alt="">
+            <img src="me-for-cv.jpg" alt="">
             <h2 style="margin-left: 15px;">Mirana Miriyeva</h2>
         </div>
         <div class="content">
           
             
-            <span>Hi, everyone! I'm Mirana Miriyeva, a passionate web developer from Azerbaijan. Throughout my journey in web development, I've had the opportunity to work on various projects using technologies like HTML, CSS, JavaScript, and more. Born in Moscow in 2005, I'm currently a second-grade Computer Science student at Baku State University, where I continue to expand my knowledge and skills in the field.
-               <br>
-
-                This mini-project is a culmination of my dedication to web development and my desire to contribute to the learning community
-                I'm grateful for the opportunity to share this project with you, and I hope it inspires others on their journey in web development. Let's continue to learn, grow, and create together!
+            <span>A passionate web developer from Azerbaijan. Throughout my journey in web development, I've had the opportunity to work on various projects using technologies like HTML, CSS, JavaScript, and more. Born in Moscow in 2005, I'm currently a second-grade Computer Science student at Baku State University, where I continue to expand my knowledge and skills in the field.
             </span>
         </div>
     </div>
+</div>
     <a class="home" href="index.html">Home</a>
 </body>
 </html>

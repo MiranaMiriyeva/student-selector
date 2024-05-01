@@ -1,125 +1,108 @@
+var items = [];
+var randomitemsmodallist = [];
 
-  var items = [];
-
-  window.onload = function() {
+window.onload = function() {
     var savedItems = localStorage.getItem('items');
     if (savedItems) {
-      items = JSON.parse(savedItems);
+        items = JSON.parse(savedItems);
+    }
+    var savedRandomItems = localStorage.getItem('randomitemsmodallist');
+    if (savedRandomItems) {
+        randomitemsmodallist = JSON.parse(savedRandomItems);
     }
     loadItems();
-  };
+    loadRandomItemsModalList(); 
+};
 
-  function saveItemsToLocalStorage() {
+function saveItemsToLocalStorage() {
     localStorage.setItem('items', JSON.stringify(items));
-  }
+    localStorage.setItem('randomitemsmodallist', JSON.stringify(randomitemsmodallist));
+}
 
-  function loadItems() {
+function loadItems() {
     var itemInputs = document.getElementById("itemInputs");
     items.forEach(function(item) {
-      var input = document.createElement("input");
-      input.type = "text";
-      input.value = item;
-      itemInputs.appendChild(input);
+        var input = document.createElement("input");
+        input.type = "text";
+        input.value = item;
+        itemInputs.appendChild(input);
     });
-  }
+}
 
-  function addItems() {
+function addItems() {
     var count = parseInt(document.getElementById("itemCount").value);
     var itemInputs = document.getElementById("itemInputs");
     itemInputs.innerHTML = "";
-  
+
     for (var i = 0; i < count; i++) {
-      var input = document.createElement("input");
-      input.type = "text";
-      input.placeholder = "item " + (i + 1);
-      itemInputs.appendChild(input);
+        var input = document.createElement("input");
+        input.type = "text";
+        input.placeholder = "item " + (i + 1);
+        itemInputs.appendChild(input);
     }
     document.getElementById("finish").style.display=  'flex';
-  }
-
-  function showRandomItems() {
-    var randomCount = parseInt(document.getElementById("randomCount").value);
-    var randomItemList = document.getElementById("randomItemList");
-
-    var itemInputs = document.getElementById("itemInputs").getElementsByTagName("input");
-    items = [];
-    for (var i = 0; i < itemInputs.length; i++) {
-      var item = itemInputs[i].value.trim();
-      if (item !== "") {
-        items.push(item);
-      }
-    }
-
-    if (items.length === 0) {
-      alert("Please fill");
-      return;
-    }
-
-    if (randomCount > items.length) {
-      alert("The number of items to be displayed randomly cannot exceed the number of items added.");
-      return;
-    }
-
-     var randomItems = [];
-    for (var i = 0; i < randomCount; i++) {
-      var randomIndex = Math.floor(Math.random() * items.length);
-      randomItems.push(items[randomIndex]);
-      items.splice(randomIndex, 1); 
-    }
-
-    randomItemList.innerHTML = "";
-    randomItems.forEach(function(item) {
-      var li = document.createElement("li");
-      li.appendChild(document.createTextNode(item));
-      randomItemList.appendChild(li);
-    });
-    saveItemsToLocalStorage();
-  }
-
-  function completeSelection() {
-        var firstSection = document.getElementById("first-section");
-        firstSection.style.display = "none";
-        saveItemsToLocalStorage();
-    
 }
-function showRandomItems() {
-    var randomCount = parseInt(document.getElementById("randomCount").value);
-    var randomItemList = document.getElementById("randomItemList");
 
-    var itemInputs = document.getElementById("itemInputs").getElementsByTagName("input");
-    items = [];
-    for (var i = 0; i < itemInputs.length; i++) {
+function showRandomItems() {
+  var randomCount = parseInt(document.getElementById("randomCount").value);
+  var randomItemList = document.getElementById("randomItemList");
+
+  var itemInputs = document.getElementById("itemInputs").getElementsByTagName("input");
+  items = [];
+  for (var i = 0; i < itemInputs.length; i++) {
       var item = itemInputs[i].value.trim();
       if (item !== "") {
-        items.push(item);
+          items.push(item);
       }
-    }
+  }
 
-    if (items.length === 0) {
+  if (items.length === 0) {
       alert("Please fill");
       return;
-    }
+  }
 
-    if (randomCount > items.length) {
+  if (randomCount > items.length) {
       alert("The number of items to be displayed randomly cannot exceed the number of items added.");
       return;
-    }
+  }
 
-     var randomItems = [];
-    for (var i = 0; i < randomCount; i++) {
+  var randomItems = [];
+  for (var i = 0; i < randomCount; i++) {
       var randomIndex = Math.floor(Math.random() * items.length);
       randomItems.push(items[randomIndex]);
       items.splice(randomIndex, 1); 
-    }
+  }
 
-    randomItemList.innerHTML = "";
-    randomItems.forEach(function(item) {
+  randomItemList.innerHTML = "";
+  randomItems.forEach(function(item) {
       var li = document.createElement("li");
       li.appendChild(document.createTextNode(item));
       randomItemList.appendChild(li);
-    });
+  });
+
+  randomitemsmodallist = randomitemsmodallist.concat(randomItems);
+  saveItemsToLocalStorage();
+
+  loadRandomItemsModalList(); 
+}
+
+
+function completeSelection() {
+  randomitemsmodallist = [];
+    var firstSection = document.getElementById("first-section");
+    firstSection.style.display = "none";
     saveItemsToLocalStorage();
-  }
+}
+
+function loadRandomItemsModalList() {
+    let randomItemsModalList = document.getElementById("random-items-modal-list");
+    randomItemsModalList.innerHTML = "";
+    randomitemsmodallist.forEach(function(item) {
+        var randomli = document.createElement("li");
+        randomli.appendChild(document.createTextNode(item));
+        randomItemsModalList.appendChild(randomli);
+    });
+}
 
 
 var PARTICLE_NUM = 500;
@@ -187,7 +170,7 @@ window.addEventListener('load', function() {
 
 function loop () {
     context.save();
-    context.fillStyle = 'rgb(0, 0, 0)';
+    context.fillStyle = '#214F5D ';
     context.fillRect(0, 0, canvasWidth, canvasHeight);
     context.restore();
 
@@ -260,3 +243,5 @@ function Particle (x, y, z){
     this.z = z || 0;
     this.pastZ = 0;
 }
+
+// let randomItemsModalList = document.getElementById("random-items-modal-list")
