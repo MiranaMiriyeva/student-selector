@@ -93,16 +93,44 @@ function completeSelection() {
     firstSection.style.display = "none";
     saveItemsToLocalStorage();
 }
-
 function loadRandomItemsModalList() {
     let randomItemsModalList = document.getElementById("random-items-modal-list");
     randomItemsModalList.innerHTML = "";
     randomitemsmodallist.forEach(function(item) {
         var randomli = document.createElement("li");
         randomli.appendChild(document.createTextNode(item));
+
+        var div = document.createElement("div");
+
+        var input = document.createElement("input");
+        input.setAttribute("type", "text");
+        input.setAttribute("placeholder", "Enter score");
+
+        var button = document.createElement("button");
+        button.appendChild(document.createTextNode("Add"));
+        button.addEventListener("click", function() {
+            var value = input.value.trim();
+            if (value !== "") {
+                var newItem = document.createElement("li");
+                newItem.textContent = value;
+                randomItemsModalList.insertBefore(newItem, randomli.nextSibling);
+                input.value = ""; 
+                div.removeChild(input);
+                div.removeChild(button);
+            }
+        });
+
+        div.appendChild(input);
+        div.appendChild(button);
+
+        randomli.appendChild(div);
+        
         randomItemsModalList.appendChild(randomli);
+       
     });
 }
+
+
 
 
 var PARTICLE_NUM = 500;
